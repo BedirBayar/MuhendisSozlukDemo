@@ -1,0 +1,54 @@
+﻿body {
+    background-color:#cccccc;
+}
+.top {
+    width: 100%;
+    height: 100px;
+}
+
+    .top .top_logo {
+        width: 25%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    .top .top_search {
+        width: 50%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    .top .top_profile {
+        width: 25%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        line-height: 100px;
+    }
+    .list{
+        float:left;
+        width:100%;
+        height:auto;
+    }
+        .list .all {
+            float: left;
+            width: 25%;
+            height: auto;
+        }
+    .list .operation{
+        float:left;
+        width:74%;
+        height:auto; 
+        text-align:center;
+        align-items:center;
+        background-color:#aaaaaa;
+    }
+    .list .operation .operation_field{
+        width:100%;
+        height:40px;
+       float:left;
+    }

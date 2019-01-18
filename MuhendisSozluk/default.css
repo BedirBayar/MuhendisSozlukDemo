@@ -1,0 +1,108 @@
+﻿body {
+    background-color: #ffffe6;
+    height: auto;
+    width: 100%;
+    margin: auto;
+    /*border:1px solid #660000;*/
+}
+.form1{
+    width:100%;
+    height:0px;
+}
+
+.top {
+    margin-top: 10px;
+    width: 100%;
+    height: 100px;
+    float: left;
+    border: 1px solid #660000;
+}
+
+    .top .logo {
+        width: 25%;
+        height: 100%;
+        float: left;
+        border-right: 1px solid #660000;
+    }
+
+    .top .search {
+        width: 49%;
+        height: 100%;
+        float: left;
+        border-right: 1px solid #660000;
+    }
+
+    .top .profile {
+        width: 25%;
+        height: 100%;
+        float: left;
+    }
+    .top .profile .buttons{
+        width:100%;
+        height:40%;
+
+    }
+        .top .profile .department_info {
+            width: 100%;
+            height: 30%;
+        }
+        .top .profile .rating_info {
+            width: 100%;
+            height: 30%;
+        }
+
+.categories {
+    width: 100%;
+    height: 30px;
+    float: left;
+    border: 1px solid #660000;
+}
+
+.solkanat {
+    width: 25%;
+    height: 600px;
+    float: left;
+    border-right: 1px solid #660000;
+}
+.solkanat .search_title { 
+    width:100%;
+    height:30px;
+    border-bottom:10px;
+}
+
+    .solkanat .btn_left_title {
+        padding-left: 10px;
+        padding-top: 5px;
+        text-decoration: none;
+    }
+        .solkanat .btn_left_title:hover {
+            text-decoration: none;
+            color: aqua;
+        }
+.entries {
+    width: 49%;
+    height: 600px;
+    float: left;
+    border-right: 1px solid #660000;
+}
+.enttries .txt_write_entry{
+    height:auto;
+}
+.entries .entry_send_button{
+    width:100%;
+    height:20px;
+    text-align:center;
+    align-content:center;
+    line-height:20px;
+}
+
+.sagkanat {
+    width: 25%;
+    height: 600px;
+    float: left;
+}
+.footer {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+}

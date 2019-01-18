@@ -1,0 +1,138 @@
+﻿body {
+    background-color: #ffffe6;
+    height: auto;
+    width: 100%%;
+    margin: auto;
+    border: 1px solid #000;
+}
+
+.top {
+    margin-top: 10px;
+    width: 100%;
+    height: 100px;
+    float: left;
+    border: 1px solid #660000;
+}
+
+    .top .logo {
+        width: 25%;
+        height: 100%;
+        float: left;
+        border-right: 1px solid #660000;
+    }
+
+    .top .search {
+        width: 49%;
+        height: 100%;
+        float: left;
+        border-right: 1px solid #660000;
+    }
+
+    .top .profile {
+        width: 25%;
+        height: 100%;
+        float: left;
+    }
+
+        .top .profile .buttons {
+            width: 100%;
+            height: 40%;
+        }
+
+        .top .profile .department_info {
+            width: 100%;
+            height: 30%;
+        }
+
+        .top .profile .rating_info {
+            width: 100%;
+            height: 30%;
+        }
+
+
+.categories {
+    width: 100%;
+    height: 30px;
+    float: left;
+    border: 1px solid #660000;
+}
+
+.solkanat {
+    width: 25%;
+    height: 600px;
+    float: left;
+    border-right: 1px solid #660000;
+}
+
+    .solkanat .ListSolKanat {
+        padding-left: 20px;
+        padding-top: 10px;
+    }
+
+
+.signup {
+    width: 74%;
+    height: auto;
+    float:left;
+    background-color: #fff0e6;
+}
+    .signup .signup_username {
+        width: 100%;
+        height: 75px;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        line-height: 75px;
+    }
+    .signup .signup_email {
+        width: 100%;
+        height: 75px;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        line-height: 75px;
+    }
+
+    .signup .signup_password {
+        width: 100%;
+        height: 75px;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        line-height: 75px;
+    }
+
+    .signup .signup_confirmpassword {
+        width: 100%;
+        height: 75px;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        line-height: 75px;
+    }
+
+    .signup .signup_gender {
+        width: 100%;
+        height: 75px;
+        text-align: center;
+        line-height: 75px;
+        border-bottom: 1px solid #000;
+    }
+    .signup .signup_enter {
+         width: 100%;
+         height: 75px;
+         border-bottom: 1px solid #000;
+            text-align: center;
+           line-height: 75px;
+
+}
+    .signup .signup_department {
+        width: 100%;
+        height: 75px;
+        border-bottom: 1px solid #000;
+        text-align: center;
+        line-height: 75px;
+    }
+
+    .signup .signup_enter .btn_signup_enter {
+        background-color: #ffd9b3;
+        color: black;
+        width:120px;
+        height:40px;
+    }
