@@ -21,7 +21,7 @@ namespace MuhendisSozluk.Entry
         private DataSet GetaData()
         {
             String name = lbl_title_name.Text;
-            SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleName=@name and Visible='True'",con);
             da.SelectCommand.Parameters.AddWithValue(@"name", name);
             DataSet ds = new DataSet();

@@ -25,7 +25,7 @@ namespace MuhendisSozluk.User
         int getWriter(String writer)
         {
             int result = 0;
-            SqlConnection con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = con2.CreateCommand();
             cmd.CommandText = "select ID from WRITER where Name=@name";
             cmd.Parameters.AddWithValue(@"name", writer);
@@ -46,7 +46,7 @@ namespace MuhendisSozluk.User
         private DataSet GetaData(String writer)
         {
             int id = getWriter(writer);
-            SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY inner join FAVENTRY on FAVENTRY.EntryID=ENTRY.ID and FAVENTRY.WriterID=@id", con3);
             da.SelectCommand.Parameters.AddWithValue(@"id", id);
             
@@ -61,7 +61,7 @@ namespace MuhendisSozluk.User
             int ID = Int32.Parse((item.FindControl("lbl_rpt_entry_number") as Label).Text);
             String writer = Session["username"].ToString();
 
-            SqlConnection con3=new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3=new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd3 = con3.CreateCommand();
             cmd3.CommandText = "delete from FAVENTRY where EntryID=@eid and WriterID=@wid";
             cmd3.Parameters.AddWithValue(@"eid", ID);

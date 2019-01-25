@@ -23,7 +23,7 @@ namespace MuhendisSozluk.Admin
             String login_user;
 
 
-            SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database=SozlukDB; Integrated Security=True;");
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = "select Name from WRITER where Email=@email and Password=@password and SeniorityID=5";
             cmd.Parameters.AddWithValue(@"email", email);

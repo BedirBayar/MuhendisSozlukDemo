@@ -12,7 +12,7 @@ namespace MuhendisSozluk.Admin
 
     public partial class Rooms : System.Web.UI.Page
     {
-        SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+        SqlConnection con = new SqlConnection(connectionStrings.bedir);
         static String name_unchanged;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,7 +33,7 @@ namespace MuhendisSozluk.Admin
         }
         protected void fillDdlNewRoom()
         {
-            var c3= new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c3= new SqlConnection(connectionStrings.bedir);
             var cmd = c3.CreateCommand();
             cmd.CommandText = "select Name from WRITER where SeniorityID=3 or SeniorityID=4 or SeniorityID=5";
             c3.Open();
@@ -85,7 +85,7 @@ namespace MuhendisSozluk.Admin
        protected String getLeader(int id)
         {
             String result = "default";
-            var con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var con2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = con2.CreateCommand();
             cmd2.CommandText = "select Name from WRITER where ID=@id";
             cmd2.Parameters.AddWithValue(@"id", id);
@@ -104,7 +104,7 @@ namespace MuhendisSozluk.Admin
         protected int getTitles (int id)
         {
             int result = 0;
-            var con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var con2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = con2.CreateCommand();
             cmd2.CommandText = "select Count(ID) from TITLE where DepartmentID=@id";
             cmd2.Parameters.AddWithValue(@"id", id);
@@ -125,7 +125,7 @@ namespace MuhendisSozluk.Admin
         protected int getEntries(int id)
         {
             int result = 0;
-            var con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var con2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = con2.CreateCommand();
             cmd2.CommandText = "select Count(Name) from ENTRY inner join TITLE on ENTRY.TitleID=TITLE.ID and TITLE.DepartmentID=@id";
             cmd2.Parameters.AddWithValue(@"id", id);
@@ -146,7 +146,7 @@ namespace MuhendisSozluk.Admin
         protected int findID(String name)
         {
             int result = 0;
-            var c2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c2 = new SqlConnection(connectionStrings.bedir);
             var cmd = c2.CreateCommand();
             cmd.CommandText = "select ID from WRITER where Name = @name";
             cmd.Parameters.AddWithValue(@"name",name);
@@ -164,7 +164,7 @@ namespace MuhendisSozluk.Admin
         {
             String name = txt_op_newroom_name.Text;
             int head = findID(ddl_op_newroom_head.SelectedItem.ToString());
-            var c1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c1 = new SqlConnection(connectionStrings.bedir);
             var cmd = c1.CreateCommand();
             cmd.CommandText = "insert into DEPARTMENT (Name, Population, Head, IsEngineer) values (@name, 0, @head, 'True')";
             cmd.Parameters.AddWithValue(@"name",name);

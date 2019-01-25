@@ -40,7 +40,7 @@ namespace MuhendisSozluk.Admin
 
             all_entries_listbox.Items.Clear();
 
-            var c2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = c2.CreateCommand();
             cmd2.CommandText = "select ID from ENTRY order by Date desc";
             c2.Open();
@@ -58,7 +58,7 @@ namespace MuhendisSozluk.Admin
             int ID = Int32.Parse(all_entries_listbox.SelectedItem.ToString().Substring(1));
            // name_unchanged = name;
             //int departmentID;
-            SqlConnection c0 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection c0 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = c0.CreateCommand();
             cmd.CommandText = "select * from Entry where ID= @id";
             cmd.Parameters.AddWithValue(@"id", ID);
@@ -87,7 +87,7 @@ namespace MuhendisSozluk.Admin
         protected void btn_entry_delete_Click(object sender, EventArgs e)
         {
             int id = Int32.Parse(lbl_entry_number.Text.Substring(1));
-            var c2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = c2.CreateCommand();
             cmd2.CommandText = "delete from ENTRY where ID=@id";
             cmd2.Parameters.AddWithValue(@"id", id);
@@ -109,7 +109,7 @@ namespace MuhendisSozluk.Admin
             Boolean x = false;
             int id = Int32.Parse(lbl_entry_number.Text.Substring(1));
             String content = txt_entry_contents.Text;
-            var c2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = c2.CreateCommand();
             if (lbl_entry_visible.Text == "Evet")
             {
@@ -137,7 +137,7 @@ namespace MuhendisSozluk.Admin
         {
             int id = Int32.Parse(lbl_entry_number.Text.Substring(1));
             String content = txt_entry_contents.Text;
-            var c2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = c2.CreateCommand();
            
                 cmd2.CommandText = "update ENTRY set Contents= @content where ID=@id"; 

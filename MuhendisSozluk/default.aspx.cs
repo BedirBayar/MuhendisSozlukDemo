@@ -121,7 +121,7 @@ namespace MuhendisSozluk
 
         private DataSet loadSolKanat()
         {
-            SqlConnection con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select Top 25 Name from TITLE where Visible='True' order by LastUpdate asc", con2);
            // da.SelectCommand.Parameters.AddWithValue(@"name", title);
             DataSet ds = new DataSet();
@@ -136,7 +136,7 @@ namespace MuhendisSozluk
             entry_repeater.DataBind();
             //bulletedlist_entries.Items.Clear();
 
-            //var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            //var connection = new SqlConnection(connectionStrings.bedir);
             //var command = connection.CreateCommand();
             //command.CommandText = "select Contents, Visible from ENTRY where TitleID = (select ID from TITLE where Name=@title) order by Date desc";
             //command.Parameters.AddWithValue("@title", title);
@@ -153,7 +153,7 @@ namespace MuhendisSozluk
         }
         private DataSet GetaData(String title)
         { 
-            SqlConnection con1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleName=@name and Visible='True'", con1);
             da.SelectCommand.Parameters.AddWithValue(@"name", title);
             DataSet ds = new DataSet();
@@ -162,7 +162,7 @@ namespace MuhendisSozluk
         }
         private DataSet fillEntriesFirst()
         {
-            SqlConnection con1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleID = (select top 1 ID from TITLE order by LastUpdate asc) and Visible='True'", con1);
             
             DataSet ds = new DataSet();
@@ -228,7 +228,7 @@ namespace MuhendisSozluk
         protected int getWriterID(String writerName)
         {
             int result;
-            var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection = new SqlConnection(connectionStrings.bedir);
             var command = connection.CreateCommand();
             command.CommandText = "select ID from WRITER where Name = @name";
             command.Parameters.AddWithValue("@name", writerName);
@@ -249,7 +249,7 @@ namespace MuhendisSozluk
         protected int getTitleID(String titleName)
         {
             int result;
-            var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection = new SqlConnection(connectionStrings.bedir);
             var command = connection.CreateCommand();
             command.CommandText = "select ID, IsActive from TITLE where Name=@title";
             command.Parameters.AddWithValue("@title", titleName);

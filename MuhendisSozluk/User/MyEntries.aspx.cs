@@ -31,7 +31,7 @@ namespace MuhendisSozluk.User
         }
         private DataSet GetaData(String writer, Boolean visible)
         {
-            SqlConnection con1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where WriterName=@name and Visible=@visible", con1);
             da.SelectCommand.Parameters.AddWithValue(@"name", writer);
             da.SelectCommand.Parameters.AddWithValue(@"visible", visible);
@@ -51,7 +51,7 @@ namespace MuhendisSozluk.User
         private void saveNewEntry(String edited_entry, int id, RepeaterItem item)
         {
             int x = 0;
-            SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = "update ENTRY set Contents =@entry where ID=@id";
             cmd.Parameters.AddWithValue(@"entry", edited_entry);
@@ -83,7 +83,7 @@ namespace MuhendisSozluk.User
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
             int id = Int32.Parse((item.FindControl("lbl_rpt_entry_number") as Label).Text);
 
-            SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = con.CreateCommand();
             
             cmd.CommandText = "delete from ENTRY where ID=@id";
@@ -116,7 +116,7 @@ namespace MuhendisSozluk.User
             String edited_entry = (item.FindControl("txt_rpt_entry_content") as TextBox).Text;
             int id = Int32.Parse((item.FindControl("lbl_rpt_entry_number") as Label).Text);
 
-            SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText = "update ENTRY set Contents =@entry, Visible = ~Visible where ID=@id";
             cmd.Parameters.AddWithValue(@"entry", edited_entry);

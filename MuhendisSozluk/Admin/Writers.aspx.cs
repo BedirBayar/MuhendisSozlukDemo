@@ -12,7 +12,7 @@ namespace MuhendisSozluk.Admin
 {
     public partial class Writers : System.Web.UI.Page
     {
-        SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+        SqlConnection con = new SqlConnection(connectionStrings.bedir);
         static DateTime def_time= DateTime.Parse("2001 - 01 - 01 00:00:00.000");
         static String name_unchanged;
         static int seniority;
@@ -60,7 +60,7 @@ namespace MuhendisSozluk.Admin
         protected int getSeniority(String name)
         {
             int result = 0;
-            SqlConnection c1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection c1 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd1 = c1.CreateCommand();
             cmd1.CommandText = "select SeniorityID from WRITER where Name=@name";
             cmd1.Parameters.AddWithValue(@"name", name);
@@ -161,7 +161,7 @@ namespace MuhendisSozluk.Admin
         }
        private String getDepartment(int a)
         {
-            var con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var con2 = new SqlConnection(connectionStrings.bedir);
             //con.Close();
             
             var cmd = con2.CreateCommand();
@@ -182,7 +182,7 @@ namespace MuhendisSozluk.Admin
         private int getFollowersCount(int a)
         {
             // con.Close();
-            var con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var con2 = new SqlConnection(connectionStrings.bedir);
             var cmd = con2.CreateCommand();
             cmd.CommandText = "select Count(ID) from FOLWRITER where FollowedID=@id ";
             cmd.Parameters.AddWithValue(@"id", a);
@@ -195,7 +195,7 @@ namespace MuhendisSozluk.Admin
         private int getEntryCount(int a)
         {
             //con.Close();
-            var con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var con2 = new SqlConnection(connectionStrings.bedir);
 
             var cmd = con2.CreateCommand();
             cmd.CommandText = "select Count(ID) from ENTRY where WriterID=@id ";

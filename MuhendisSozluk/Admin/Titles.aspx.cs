@@ -12,7 +12,7 @@ namespace MuhendisSozluk.Admin
 {
     public partial class Titles : System.Web.UI.Page
     {
-         SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+         SqlConnection con = new SqlConnection(connectionStrings.bedir);
         
         static String name_unchanged;
         static String session;
@@ -52,7 +52,7 @@ namespace MuhendisSozluk.Admin
         protected int getSeniority(String name)
         {
             int result = 0;
-            SqlConnection c1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection c1 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd1 = c1.CreateCommand();
             cmd1.CommandText = "select SeniorityID from WRITER where Name=@name";
             cmd1.Parameters.AddWithValue(@"name", name);
@@ -71,7 +71,7 @@ namespace MuhendisSozluk.Admin
         {
             all_titles_listbox.Items.Clear();
             
-            var c2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = c2.CreateCommand();
             if (seniority == 4) {
                 cmd2.CommandText = "select Name from TITLE where DepartmentID=(select DepartmentID from WRITER where Name =@name) order by LastUpdate desc";
@@ -93,7 +93,7 @@ namespace MuhendisSozluk.Admin
             String name = all_titles_listbox.SelectedItem.ToString();
             name_unchanged = name;
             //int departmentID;
-            SqlConnection c0 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection c0 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd = c0.CreateCommand();
             cmd.CommandText = "select Name, ID, Date, LastUpdate, DepartmentID, Useful, Useless, Visible, IsActive from TITLE where Name= @name";
             cmd.Parameters.AddWithValue(@"name", name);
@@ -126,7 +126,7 @@ namespace MuhendisSozluk.Admin
         protected int getFollowers(int id)
         {
             int result = 0;
-            var c5 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c5 = new SqlConnection(connectionStrings.bedir);
             // if (c5.State == ConnectionState.Open) c5.Close();
             var cmd5 = c5.CreateCommand();
             cmd5.CommandText = "select Count(ID) from FOLTITLE where TitleID=@id";
@@ -143,7 +143,7 @@ namespace MuhendisSozluk.Admin
         protected String getDepartment(int id)
         {
             String result = "";
-            var c4 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c4 = new SqlConnection(connectionStrings.bedir);
             // if (c4.State == ConnectionState.Open) c4.Close();
             var cmd4 = c4.CreateCommand();
             cmd4.CommandText = "select Name from DEPARTMENT where ID=@id";
@@ -160,7 +160,7 @@ namespace MuhendisSozluk.Admin
         protected int getEntryCount(int id)
         {
             int result = 0;
-            var c3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c3 = new SqlConnection(connectionStrings.bedir);
             // if (c3.State == ConnectionState.Open) c3.Close();
             var cmd3= c3.CreateCommand();
             cmd3.CommandText = "select Count(ID) from ENTRY where TitleID=@id";
@@ -184,7 +184,7 @@ namespace MuhendisSozluk.Admin
         {
             String name = txt_titles_name.Text;
            
-            var c6 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c6 = new SqlConnection(connectionStrings.bedir);
             // if (c3.State == ConnectionState.Open) c3.Close();
             var cmd6 = c6.CreateCommand();
             if(lbl_titles_isactive.Text=="Evet")
@@ -210,7 +210,7 @@ namespace MuhendisSozluk.Admin
         {
             String name = txt_titles_name.Text;
 
-            var c7 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c7 = new SqlConnection(connectionStrings.bedir);
             // if (c3.State == ConnectionState.Open) c3.Close();
             var cmd7= c7.CreateCommand();
             if(lbl_titles_visible.Text=="Evet")
@@ -236,7 +236,7 @@ namespace MuhendisSozluk.Admin
         {
             String name = txt_titles_name.Text;
 
-            var c8 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var c8 = new SqlConnection(connectionStrings.bedir);
             // if (c3.State == ConnectionState.Open) c3.Close();
             var cmd8= c8.CreateCommand();
             cmd8.CommandText = "update TITLE set Name=@name where Name=@name_u";

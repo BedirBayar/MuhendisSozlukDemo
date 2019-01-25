@@ -20,7 +20,7 @@ namespace MuhendisSozluk.Title
         private DataSet GetaData()
         {
            // String name = lbl_title_name.Text;
-            SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select top 25 Name, Today from TITLE where Visible='True' order by LastUpdate asc", con);
             //da.SelectCommand.Parameters.AddWithValue(@"name", name);
             DataSet ds = new DataSet();

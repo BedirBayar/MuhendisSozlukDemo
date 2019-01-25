@@ -8,6 +8,8 @@ using System.Data;
 using System.Data.SqlClient;
 using MuhendisSozluk;
 
+
+
 namespace MuhendisSozluk.User
 {
     public partial class Login : System.Web.UI.Page
@@ -31,7 +33,7 @@ namespace MuhendisSozluk.User
             {
                 ListSolKanat.Items.Clear();
             }
-            var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection = new SqlConnection(connectionStrings.bedir);
             var command = connection.CreateCommand();
             command.CommandText = "select top 20 Name from TITLE order by LastUpdate desc";
             connection.Open();
@@ -50,7 +52,7 @@ namespace MuhendisSozluk.User
             String temp_user;
             int temp_userid=0;
 
-            var connection_login = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database=SozlukDB; Integrated Security=True;");
+            var connection_login = new SqlConnection(connectionStrings.bedir);
             var command_login = connection_login.CreateCommand();
             connection_login.Open();
             command_login.CommandText = "select Name, ID from WRITER where Email = @email and Password = @password";

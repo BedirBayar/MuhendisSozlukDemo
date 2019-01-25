@@ -11,7 +11,7 @@ namespace MuhendisSozluk.Title
     public class TitleLayer
     {
         //private DateTime lastUpdate;
-        private static SqlConnection Conn = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+        private static SqlConnection Conn = new SqlConnection(connectionStrings.bedir);
         public static void setTitleUpdate(int Title)
         {
             SqlCommand cmd = Conn.CreateCommand();

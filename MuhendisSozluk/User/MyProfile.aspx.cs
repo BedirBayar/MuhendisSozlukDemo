@@ -55,7 +55,7 @@ namespace MuhendisSozluk.User
         }
         public DataSet loadSolKanat()
         {
-                SqlConnection con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
                 SqlDataAdapter da = new SqlDataAdapter(@"select Top 25 Name from TITLE where Visible='True' order by LastUpdate asc", con2);
                 // da.SelectCommand.Parameters.AddWithValue(@"name", title);
                 DataSet ds = new DataSet();
@@ -65,7 +65,7 @@ namespace MuhendisSozluk.User
                 //{
                 //    ListSolKanat.Items.Clear();
                 //}
-                //var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                //var connection = new SqlConnection(connectionStrings.bedir);
                 //var command = connection.CreateCommand();
                 //command.CommandText = "select top 20 Name from TITLE order by LastUpdate desc";
                 //connection.Open();
@@ -83,7 +83,7 @@ namespace MuhendisSozluk.User
         {
             //if (!this.IsPostBack) { 
             //myaccount_bulletedlist.Items.Clear();
-            //var connect_myaccount = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            //var connect_myaccount = new SqlConnection(connectionStrings.bedir);
             //var command_myaccount = connect_myaccount.CreateCommand();
 
             //command_myaccount.CommandText = "select Contents from ENTRY where WriterID = (select ID from WRITER where Name=@name)";
@@ -103,7 +103,7 @@ namespace MuhendisSozluk.User
         protected void myfavs_Click(object sender, EventArgs e)
         {
             //myaccount_bulletedlist.Items.Clear();
-            //var connect_myaccount = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            //var connect_myaccount = new SqlConnection(connectionStrings.bedir);
             //var command_myaccount = connect_myaccount.CreateCommand();
 
             //command_myaccount.CommandText = "select EntryID from FAVENTRY where WriterID=(select ID from WRITER where Name=@name)";
@@ -170,7 +170,7 @@ namespace MuhendisSozluk.User
         protected void myfollowed_Click(object sender, EventArgs e)
         {
             //myaccount_bulletedlist.Items.Clear();
-            //var connect_myaccount = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            //var connect_myaccount = new SqlConnection(connectionStrings.bedir);
             //var command_myaccount = connect_myaccount.CreateCommand();
 
             //command_myaccount.CommandText = "select FollowedID from FOLWRITER where FollowerID=(select ID from WRITER where Name=@name)";

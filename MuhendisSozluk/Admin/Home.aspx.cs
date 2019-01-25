@@ -18,7 +18,7 @@ namespace MuhendisSozluk.Admin
         static int dep_id=-1;
         static String subAdmin;
         static string name_unchanged;
-        SqlConnection con = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+        SqlConnection con = new SqlConnection(connectionStrings.bedir);
      
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -73,7 +73,7 @@ namespace MuhendisSozluk.Admin
         protected int getDepByName(string name)
         {
             int result =0;
-            SqlConnection c11 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection c11 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd11 = c11.CreateCommand();
             cmd11.CommandText = "select DepartmentID from WRITER where Name=@name";
             cmd11.Parameters.AddWithValue(@"name", name);
@@ -87,7 +87,7 @@ namespace MuhendisSozluk.Admin
         protected int getSeniority(String name)
         {
             int result = 0;
-            SqlConnection c1 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection c1 = new SqlConnection(connectionStrings.bedir);
             SqlCommand cmd1 = c1.CreateCommand();
             cmd1.CommandText = "select SeniorityID from WRITER where Name=@name";
             cmd1.Parameters.AddWithValue(@"name", name);
@@ -103,7 +103,7 @@ namespace MuhendisSozluk.Admin
         }
         protected void fillDdlDepartment()
         {
-            var connection_ddl = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection_ddl = new SqlConnection(connectionStrings.bedir);
             var command_ddl = connection_ddl.CreateCommand();
             command_ddl.CommandText = "select Name from DEPARTMENT";
             connection_ddl.Open();
@@ -117,7 +117,7 @@ namespace MuhendisSozluk.Admin
         protected void fillDdlSeniority()
         {
 
-            var connection_ddl = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection_ddl = new SqlConnection(connectionStrings.bedir);
             var command_ddl = connection_ddl.CreateCommand();
             command_ddl.CommandText = "select Name from SENIORITY";
             connection_ddl.Open();
@@ -305,7 +305,7 @@ con.Close();
         String getWriter(int id)
         {
             String result = null;
-            SqlConnection con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = con2.CreateCommand();
             cmd2.CommandText = "select Name from WRITER where ID = @id";
             cmd2.Parameters.AddWithValue(@"id",id);
@@ -325,7 +325,7 @@ con.Close();
         String getDepartment(int id)
         {
             String result = null;
-            SqlConnection con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             var cmd2 = con2.CreateCommand();
             cmd2.CommandText = "select Name from DEPARTMENT where ID = @id";
             cmd2.Parameters.AddWithValue(@"id", id);
@@ -345,7 +345,7 @@ con.Close();
         String getTitle(int id)
         {
             String result = null;
-            SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             cmd3.CommandText = "select Name from TITLE where ID = @id";
             cmd3.Parameters.AddWithValue(@"id", id);
@@ -365,7 +365,7 @@ con.Close();
         int getFollowerCount(int id)
         {
             int result = 0;
-            SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             cmd3.CommandText = "select count(FollowerID) from FOLWRITER where FollowedID = @id";
             cmd3.Parameters.AddWithValue(@"id", id);
@@ -385,7 +385,7 @@ con.Close();
         int getEntryCount(int id)
         {
             int result = 0;
-            SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             cmd3.CommandText = "select count(ID) from ENTRY where WriterID = @id";
             cmd3.Parameters.AddWithValue(@"id", id);
@@ -405,7 +405,7 @@ con.Close();
         String getSuspend(int id) 
         {
             String result = "yok";
-            SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             cmd3.CommandText = "select Until from BLOCKWRITER where WriterID = @id";
             cmd3.Parameters.AddWithValue(@"id", id);
@@ -430,7 +430,7 @@ con.Close();
             String Contents = txt_search_entry_contents.Text;
             int entryID = Int32.Parse(lbl_search_entry_number.Text);
             if (txt_search_entry_contents.Text!=null) { 
-            SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             cmd3.CommandText = "update ENTRY set Contents=@Contents where ID=@id ";
             cmd3.Parameters.AddWithValue(@"Contents", Contents);
@@ -459,7 +459,7 @@ con.Close();
             int id = Int32.Parse(lbl_search_entry_number.Text);
             if (txt_search_entry_contents.Text != null)
             {
-                SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "delete from ENTRY where ID=@id ";
                 cmd3.Parameters.AddWithValue(@"id", id);
@@ -488,7 +488,7 @@ con.Close();
             int entryID = Int32.Parse(lbl_search_entry_number.Text);
             if (txt_search_entry_contents.Text != null)
             {
-                SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "update ENTRY set Contents=@Contents, Visible='False' where ID=@id ";
                 cmd3.Parameters.AddWithValue(@"Contents", Contents);
@@ -518,7 +518,7 @@ con.Close();
             int departmentid = ddl_search_title_department.SelectedIndex + 1;
             if (txt_search_title_name.Text != null)
             {
-                SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "update TITLE set Name=@name, DepartmentID=@departmentid where ID=@id ";
                 cmd3.Parameters.AddWithValue(@"name",name);
@@ -551,7 +551,7 @@ con.Close();
 
             if (txt_search_title_name.Text != null)
             {
-                SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "update TITLE set Name=@name, DepartmentID=@departmentid, IsActive='False' where ID=@id ";
                 cmd3.Parameters.AddWithValue(@"name", name);
@@ -583,7 +583,7 @@ con.Close();
 
             if (txt_search_title_name.Text != null)
             {
-                SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "update TITLE set Name=@name, DepartmentID=@departmentid, Visible='False' where ID=@id ";
                 cmd3.Parameters.AddWithValue(@"name", name);
@@ -757,7 +757,7 @@ con.Close();
             int seniorityid = ddl_search_writer_seniority.SelectedIndex + 1;
             if (txt_search_writer_name.Text != null)
             {
-                SqlConnection con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+                SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "update WRITER set Name=@name, SeniorityID=@seniorityid, Password=@password where ID=@id ";
                 cmd3.Parameters.AddWithValue(@"name", name);

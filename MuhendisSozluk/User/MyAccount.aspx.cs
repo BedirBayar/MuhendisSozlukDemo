@@ -46,7 +46,7 @@ namespace MuhendisSozluk.User
         }
         public DataSet loadSolKanat()
         {
-            SqlConnection con2 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select Top 25 Name from TITLE where Visible='True' order by LastUpdate asc", con2);
             // da.SelectCommand.Parameters.AddWithValue(@"name", title);
             DataSet ds = new DataSet();
@@ -56,7 +56,7 @@ namespace MuhendisSozluk.User
             //{
             //    ListSolKanat.Items.Clear();
             //}
-            //var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            //var connection = new SqlConnection(connectionStrings.bedir);
             //var command = connection.CreateCommand();
             //command.CommandText = "select top 20 Name from TITLE order by LastUpdate desc";
             //connection.Open();

@@ -19,7 +19,7 @@ namespace MuhendisSozluk.User
          
         protected void fillDropDownList()
         {
-            var connection_ddl = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection_ddl = new SqlConnection(connectionStrings.bedir);
             var command_ddl = connection_ddl.CreateCommand();
             command_ddl.CommandText = "select Name from DEPARTMENT";
             connection_ddl.Open();
@@ -33,7 +33,7 @@ namespace MuhendisSozluk.User
         protected int getDepartmentId(String department)
         {
             int departmentid;
-            var connection_signup = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection_signup = new SqlConnection(connectionStrings.bedir);
             var command_signup = connection_signup.CreateCommand();
             connection_signup.Open();
             command_signup.CommandText = "select ID from DEPARTMENT where Name = @name";
@@ -66,7 +66,7 @@ namespace MuhendisSozluk.User
             {
                 ListSolKanat.Items.Clear();
             }
-            var connection = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection = new SqlConnection(connectionStrings.bedir);
             var command = connection.CreateCommand();
             command.CommandText = "select top 20 Name from TITLE order by LastUpdate desc";
             connection.Open();
@@ -87,7 +87,7 @@ namespace MuhendisSozluk.User
             department = ddl_signup_department.SelectedItem.Text;
             int departmentid = getDepartmentId(department);
 
-            var connection_signup = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ");
+            var connection_signup = new SqlConnection(connectionStrings.bedir);
             var command_signup = connection_signup.CreateCommand();
             connection_signup.Open();
             command_signup.CommandText = "insert into WRITER (Name, Email, Password, Gender, DepartmentID) values (@name, @email, @password, @gender, @department)";

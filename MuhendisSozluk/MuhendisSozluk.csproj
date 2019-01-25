@@ -156,6 +156,7 @@
     <Compile Include="Admin\Writers.aspx.designer.cs">
       <DependentUpon>Writers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="connectionStrings.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
