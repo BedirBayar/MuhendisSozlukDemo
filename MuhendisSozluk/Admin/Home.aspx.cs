@@ -614,7 +614,7 @@ con.Close();
             int seniority = ddl_search_writer_seniority.SelectedIndex + 1;
             String password = txt_search_writer_password.Text;
 
-            var con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             con3.Open();
             cmd3.CommandText = "update WRITER set Name=@name, SeniorityID=@seniority, Password=@password where Name =@name_u";
@@ -634,7 +634,7 @@ con.Close();
             var date = DateTime.Now;
             var span = new System.TimeSpan(3, 0, 0, 0);
             DateTime until = date + span;
-            var con4 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con4 = new SqlConnection(connectionStrings.bedir);
             var cmd4 = con4.CreateCommand();
             con4.Open();
             if (lbl_search_writer_suspend.Text == "NO_SUSPEND")
@@ -661,7 +661,7 @@ con.Close();
             int seniority = ddl_search_writer_seniority.SelectedIndex + 1;
             String password = txt_search_writer_password.Text;
 
-            var con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             con3.Open();
             cmd3.CommandText = "update WRITER set Name=@name, SeniorityID=@seniority, Password=@password where Name =@name_u";
@@ -682,7 +682,7 @@ con.Close();
             var date = DateTime.Now;
             var span = new System.TimeSpan(10, 0, 0, 0);
             DateTime until = date + span;
-            var con4 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con4 = new SqlConnection(connectionStrings.bedir);
             var cmd4 = con4.CreateCommand();
             con4.Open();
             if (lbl_search_writer_suspend.Text == "NO_SUSPEND")
@@ -708,7 +708,7 @@ con.Close();
             int seniority = ddl_search_writer_seniority.SelectedIndex + 1;
             String password = txt_search_writer_password.Text;
 
-            var con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             con3.Open();
             cmd3.CommandText = "update WRITER set Name=@name, SeniorityID=@seniority, Password=@password where Name =@name_u";
@@ -729,7 +729,7 @@ con.Close();
             var date = DateTime.Now;
             var span = new System.TimeSpan(101, 0, 0, 0);
             DateTime until = date + span;
-            var con4 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con4 = new SqlConnection(connectionStrings.bedir);
             var cmd4 = con4.CreateCommand();
             con4.Open();
             if (lbl_search_writer_suspend.Text == "NO_SUSPEND")
@@ -784,7 +784,7 @@ con.Close();
             String control = checkWriterHead(name);
             if (control == "NO")
             {
-                var con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+                var con3 = new SqlConnection(connectionStrings.bedir);
                 var cmd3 = con3.CreateCommand();
                 cmd3.CommandText = "delete from WRITER where Name=@name";
                 con3.Open();
@@ -805,7 +805,7 @@ con.Close();
         protected String checkWriterHead(string name)
         {
             String result = "";
-            var con3 = new SqlConnection(@"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True;");
+            var con3 = new SqlConnection(connectionStrings.bedir);
             var cmd3 = con3.CreateCommand();
             con3.Open();
             cmd3.CommandText = "select Name from DEPARTMENT where Head = (select ID from WRITER where Name=@name)";

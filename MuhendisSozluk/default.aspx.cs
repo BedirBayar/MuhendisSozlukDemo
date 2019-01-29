@@ -14,10 +14,12 @@ namespace MuhendisSozluk
     public partial class _default : System.Web.UI.Page
     {
         String con = @"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ";
+        String title2 = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
+                
                 object user = Session["username"];
                 if (user != null)
                 {
@@ -31,8 +33,15 @@ namespace MuhendisSozluk
                     btn_default_loginout.Text = "giriş yap";
                 }
                 fill();
+                if (RouteData.Values["TITLE"] != null)
+                {
+                    title2 = (RouteData.Values["TITLE"].ToString());
+                    loadEntries(title2);
+
+
+                }
                 //loadSolKanat();
-                
+
 
                 //var connect = new SqlConnection(con);
                 //var cmd = connect.CreateCommand();
@@ -101,7 +110,7 @@ namespace MuhendisSozluk
             c1.Close();
             return result;
         }
-        
+
 
         protected void btn_default_loginout_Click(object sender, EventArgs e)
         {
@@ -123,15 +132,15 @@ namespace MuhendisSozluk
         {
             SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select Top 25 Name from TITLE where Visible='True' order by LastUpdate asc", con2);
-           // da.SelectCommand.Parameters.AddWithValue(@"name", title);
+            // da.SelectCommand.Parameters.AddWithValue(@"name", title);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        public void loadEntries(String title)
+        public void loadEntries(String url)
         {
-            DataSet ds = GetaData(title);
+            DataSet ds = GetaData(url);
             entry_repeater.DataSource = ds;
             entry_repeater.DataBind();
             //bulletedlist_entries.Items.Clear();
@@ -151,11 +160,11 @@ namespace MuhendisSozluk
             //}
             //connection.Close();
         }
-        private DataSet GetaData(String title)
-        { 
+        private DataSet GetaData(String url)
+        {
             SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
-            SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleName=@name and Visible='True'", con1);
-            da.SelectCommand.Parameters.AddWithValue(@"name", title);
+            SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleID=(select ID from TITLE where Url= @url)", con1);
+            da.SelectCommand.Parameters.AddWithValue(@"url", url);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
@@ -164,7 +173,7 @@ namespace MuhendisSozluk
         {
             SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleID = (select top 1 ID from TITLE order by LastUpdate asc) and Visible='True'", con1);
-            
+
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
@@ -173,14 +182,14 @@ namespace MuhendisSozluk
         //burası lissolkanat
         //protected void listSolKanat_SelectedIndexChanged(object sender, EventArgs e)
         //{
-           
+
         //        loadEntries(listSolKanat.SelectedItem.ToString());
         //    lbl_default_title_name.Text = listSolKanat.SelectedItem.ToString();
 
-            
+
         //}
 
-      
+
 
         protected void btn_entry_send_Click(object sender, EventArgs e)
         {
@@ -192,28 +201,30 @@ namespace MuhendisSozluk
                 int writerid = getWriterID(user.ToString());
                 int titleid = getTitleID(lbl_default_title_name.Text);
 
-                if (titleid != -1) { 
-                var connect = new SqlConnection(con);
-                var cmd = connect.CreateCommand();
-                cmd.CommandText = "insert into ENTRY (Date, Contents, WriterID, WriterName, TitleID, TitleName, Visible, FavCount, LikeCount, DislCount) values (@date, @content, @writerid, @writername, @titleid, @titlename, 'True', 0, 0, 0)";
-                cmd.Parameters.AddWithValue("@date", date);
-                cmd.Parameters.AddWithValue("@content", content);
-                cmd.Parameters.AddWithValue("@writerid", writerid);
+                if (titleid != -1)
+                {
+                    var connect = new SqlConnection(con);
+                    var cmd = connect.CreateCommand();
+                    cmd.CommandText = "insert into ENTRY (Date, Contents, WriterID, WriterName, TitleID, TitleName, Visible, FavCount, LikeCount, DislCount) values (@date, @content, @writerid, @writername, @titleid, @titlename, 'True', 0, 0, 0)";
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@content", content);
+                    cmd.Parameters.AddWithValue("@writerid", writerid);
                     cmd.Parameters.AddWithValue("@writername", user.ToString());
                     cmd.Parameters.AddWithValue("@titleid", titleid);
                     cmd.Parameters.AddWithValue("@titlename", lbl_default_title_name.Text);
                     connect.Open();
-                try {
-                var reader = cmd.ExecuteNonQuery();
-                    TitleLayer.setTitleUpdate(titleid);
-                    txt_write_entry.Text = "";
-                    loadEntries(lbl_default_title_name.Text);
-                 }
-                catch(Exception ex)
-                {
-                    
-                }
-                connect.Close();
+                    try
+                    {
+                        var reader = cmd.ExecuteNonQuery();
+                        TitleLayer.setTitleUpdate(titleid);
+                        txt_write_entry.Text = "";
+                        loadEntries(lbl_default_title_name.Text);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    connect.Close();
                 }
                 else
                 {
@@ -235,13 +246,13 @@ namespace MuhendisSozluk
 
             connection.Open();
             var reader = command.ExecuteReader();
-           if (reader.Read())
+            if (reader.Read())
             {
-                result=reader.GetInt32(0);
+                result = reader.GetInt32(0);
             }
             else
             {
-                result= 0;
+                result = 0;
             }
             connection.Close();
             return result;
@@ -258,8 +269,9 @@ namespace MuhendisSozluk
             var reader = command.ExecuteReader();
             if (reader.Read())
             {
-                if (reader.GetBoolean(1)) { 
-               result= reader.GetInt32(0);
+                if (reader.GetBoolean(1))
+                {
+                    result = reader.GetInt32(0);
                 }
                 else
                 {
@@ -268,19 +280,53 @@ namespace MuhendisSozluk
             }
             else
             {
-                result= 0;
+                result = 0;
             }
             connection.Close();
             return result;
-            
+
         }
 
         protected void btn_left_title_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
-            String title=btn.Text;
+            String title = btn.Text;
             loadEntries(title);
             lbl_default_title_name.Text = title;
+        }
+
+        protected void btn_title_send_Click(object sender, EventArgs e)
+        {
+            object user = Session["username"];
+
+            DateTime date = DateTime.Now;
+            String name = txt_write_title.Text;
+            int writerid = getWriterID(user.ToString());
+            String url = Helper.SEOUrl(name);
+
+
+            var connect = new SqlConnection(con);
+            var cmd = connect.CreateCommand();
+            cmd.CommandText = "insert into TITLE (Date, Name, WriterID, Visible, IsActive, Useful, Useless, Url) values (@date, @content, @writerid, 1, 1, 0, 0, @url)";
+            cmd.Parameters.AddWithValue("@date", date);
+            cmd.Parameters.AddWithValue("@content", name);
+            cmd.Parameters.AddWithValue("@writerid", writerid);
+            cmd.Parameters.AddWithValue("@url", url);
+            connect.Open();
+            try
+            {
+                var reader = cmd.ExecuteNonQuery();
+
+                loadEntries(name);
+            }
+            catch (Exception ex)
+            {
+                lbl_entrysend_status.Text = ex.Message.ToString();
+            }
+            connect.Close();
+
+            loadSolKanat();
+
         }
     }//master.cs
 

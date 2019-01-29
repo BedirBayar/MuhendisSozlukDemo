@@ -94,6 +94,33 @@ namespace MuhendisSozluk {
         protected global::System.Web.UI.WebControls.Repeater entry_repeater;
         
         /// <summary>
+        /// txt_write_title control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_write_title;
+        
+        /// <summary>
+        /// btn_title_send control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_title_send;
+        
+        /// <summary>
+        /// lbl_title_send control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_title_send;
+        
+        /// <summary>
         /// txt_write_entry control.
         /// </summary>
         /// <remarks>

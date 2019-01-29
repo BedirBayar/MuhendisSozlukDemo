@@ -11,7 +11,7 @@ namespace MuhendisSozluk.User
 {
     public partial class MyAccount : System.Web.UI.Page
     {
-        String con = @"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ";
+        String con = connectionStrings.bedir;
         static String Name = null;
         static bool gender;
         static String email;

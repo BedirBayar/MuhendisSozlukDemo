@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 
@@ -12,7 +13,7 @@ namespace MuhendisSozluk
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
+            RouteTable.Routes.Add("blog-detay", new Route("{title}", new PageRouteHandler("~/default.aspx")));
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -21,8 +22,9 @@ namespace MuhendisSozluk
         }
         public static void RegisterRoute(System.Web.Routing.RouteCollection routes)
         {
-            routes.MapPageRoute("ForTitle", "~/{Name}", "~/default.aspx");
-            routes.MapPageRoute("ForTitle", "~/{Name}", "~/");
+            //routes.MapPageRoute("ForTitle", "~/{Name}", "~/default.aspx");
+            //routes.MapPageRoute("ForTitle", "~/{Name}", "~/");
+
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

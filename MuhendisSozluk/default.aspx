@@ -45,7 +45,8 @@
             <asp:Repeater ID="title_repeater" runat="server" >
                 <ItemTemplate>
                     <div style="width:100%; height:30px; border-bottom:1px dashed gray; float:left; background-color:#777777">
-                        <asp:LinkButton ID="btn_left_title" Font-Underline="false" OnClick="btn_left_title_Click" CssClass="btn_left_title" runat="server" Width="100%"  ForeColor="White" Text='<% #Eval("Name") %>'></asp:LinkButton>
+                        <%--<asp:LinkButton ID="btn_left_title" Font-Underline="false" OnClick="btn_left_title_Click" CssClass="btn_left_title" runat="server" Width="100%"  ForeColor="White" ></asp:LinkButton>--%>
+                        <a href='<%#string.Format("{0}", MuhendisSozluk.Helper.SEOUrl(Eval("Name").ToString()))%>' class='btn btn-outline-success mb5 btn-rounded'><%#Eval("Name")%></a>
                             <%--<asp:Label ID="lbl_title_entry_today" runat="server" Width="19%" ForeColor="#d9d9d9" Text='<% #Eval("Today") %>'></asp:Label> --%>
                         
                     </div>
@@ -81,6 +82,11 @@
         </div>
             </ItemTemplate>
         </asp:Repeater>
+                <asp:TextBox Class="txt_write_title" ID="txt_write_title" runat="server" MaxLength="100" TextMode="MultiLine" Width="99%" ></asp:TextBox>
+                <div class="entry_send_button">
+                    <asp:Button ID="btn_title_send" runat="server" BorderStyle="None" Text="başlık aç" Width="100px" Height="100%" BackColor="#ffffe6" OnClick="btn_title_send_Click"/>
+                    <asp:Label ID="lbl_title_send" runat="server"></asp:Label>
+                </div>
                 
                 <asp:TextBox Class="txt_write_entry" ID="txt_write_entry" runat="server" MaxLength="100" TextMode="MultiLine" placeholder="entry girebilmek için giriş yapınız." Width="99%" ></asp:TextBox>
                 <div class="entry_send_button">
