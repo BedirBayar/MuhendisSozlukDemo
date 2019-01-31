@@ -13,13 +13,13 @@ namespace MuhendisSozluk
 {
     public partial class _default : System.Web.UI.Page
     {
-        String con = @"data source = DESKTOP-PIRF3HI\SQLEXPRESS; Database = SozlukDB; Integrated Security = True; ";
+        String con = connectionStrings.bedir;
         String title2 = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
-                
+
                 object user = Session["username"];
                 if (user != null)
                 {
@@ -40,6 +40,7 @@ namespace MuhendisSozluk
 
 
                 }
+            }
                 //loadSolKanat();
 
 
@@ -64,7 +65,7 @@ namespace MuhendisSozluk
                 //    lbl_default_title_name.Text=reader2.GetString(0);
                 //}
                 //connect2.Close();
-            }
+            
         } //default.aspx.cs
         protected void fill()
         {
@@ -140,7 +141,7 @@ namespace MuhendisSozluk
 
         public void loadEntries(String url)
         {
-            DataSet ds = GetaData(url);
+            DataSet ds = GetData(url);
             entry_repeater.DataSource = ds;
             entry_repeater.DataBind();
             //bulletedlist_entries.Items.Clear();
@@ -160,11 +161,26 @@ namespace MuhendisSozluk
             //}
             //connection.Close();
         }
-        private DataSet GetaData(String url)
+        public void loadOneEntry(int number)
+        {
+            DataSet ds = GetOneEntry(number);
+            entry_repeater.DataSource = ds;
+            entry_repeater.DataBind();
+        }
+        private DataSet GetData(String url)
         {
             SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
             SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where TitleID=(select ID from TITLE where Url= @url)", con1);
             da.SelectCommand.Parameters.AddWithValue(@"url", url);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+        private DataSet GetOneEntry(int number)
+        {
+            SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
+            SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where ID=@number", con1);
+            da.SelectCommand.Parameters.AddWithValue(@"number", number);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
@@ -295,38 +311,156 @@ namespace MuhendisSozluk
             lbl_default_title_name.Text = title;
         }
 
-        protected void btn_title_send_Click(object sender, EventArgs e)
+        
+        protected void btn_user_search_Click(object sender, EventArgs e)
         {
-            object user = Session["username"];
-
-            DateTime date = DateTime.Now;
-            String name = txt_write_title.Text;
-            int writerid = getWriterID(user.ToString());
-            String url = Helper.SEOUrl(name);
+            String key = txt_user_search.Text;
 
 
-            var connect = new SqlConnection(con);
-            var cmd = connect.CreateCommand();
-            cmd.CommandText = "insert into TITLE (Date, Name, WriterID, Visible, IsActive, Useful, Useless, Url) values (@date, @content, @writerid, 1, 1, 0, 0, @url)";
-            cmd.Parameters.AddWithValue("@date", date);
-            cmd.Parameters.AddWithValue("@content", name);
-            cmd.Parameters.AddWithValue("@writerid", writerid);
-            cmd.Parameters.AddWithValue("@url", url);
-            connect.Open();
-            try
+            if (key.StartsWith("#"))
             {
-                var reader = cmd.ExecuteNonQuery();
-
-                loadEntries(name);
+                searchEntry(key.Substring(1));
             }
-            catch (Exception ex)
+            else if (key.StartsWith("@"))
             {
-                lbl_entrysend_status.Text = ex.Message.ToString();
+              searchWriter(key.Substring(1));
             }
-            connect.Close();
+            else
+            {
+                searchTitle(key);
+            }
+        }
+        public void searchEntry(String key)
+        {
+            String url = "~/entry/" + Helper.SEOUrl(key);
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
+            int number = Int32.Parse(key);
+            var cmd = con.CreateCommand();
+            cmd.CommandText = "select ID from ENTRY where ID = @number";
+            cmd.Parameters.AddWithValue(@"number", number);
+            con.Open();
+            var rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                Response.Redirect(url);
+            }
 
-            loadSolKanat();
+            else
+            {
+                lbl_user_search.Text = "bu entry imha edildi ya da hiç yazılmadı!";
+            }
+            con.Close();
+        }
 
+        protected void searchWriter(String key)
+        {
+            String url = "~/yazar/" + Helper.SEOUrl(key);
+            
+            SqlConnection con = new SqlConnection(connectionStrings.bedir);
+            var cmd = con.CreateCommand();
+            cmd.CommandText = "select ID from WRITER where Url = @number";
+            cmd.Parameters.AddWithValue(@"number", key);
+            con.Open();
+            var rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                Response.Redirect(url);
+            }
+
+            else
+            {
+                lbl_user_search.Text = "bu yazar imha edildi ya da hiç var olmadı!";
+            }
+            con.Close();
+        }
+        protected void searchTitle(String key)
+        {
+
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
+            String name = Helper.SEOUrl(key);
+            String url = "~/" + name;
+            var cmd = con2.CreateCommand();
+
+            cmd.CommandText = "select ID from TITLE where Url = @name";
+            cmd.Parameters.AddWithValue(@"name", name);
+
+            con2.Open();
+            var rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                Response.Redirect(url);
+            }
+
+            else
+            {
+                lbl_user_search.Text = "bu başlık imha edildi ya da hiç açılmadı.";
+            }
+            con2.Close();
+        }
+        String boolEvetHayir(Boolean x)
+        {
+            if (x) return "evet";
+            return "hayır";
+        }
+        String getWriter(int id)
+        {
+            String result = null;
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
+            var cmd2 = con2.CreateCommand();
+            cmd2.CommandText = "select Name from WRITER where ID = @id";
+            cmd2.Parameters.AddWithValue(@"id", id);
+            con2.Open();
+            var rdr2 = cmd2.ExecuteReader();
+            if (rdr2.Read())
+            {
+                result = rdr2.GetString(0);
+            }
+            else
+            {
+                result = "yazar bulunamadı!";
+            }
+            con2.Close();
+            return result;
+        }
+        String getDepartment(int id)
+        {
+            String result = null;
+            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
+            var cmd2 = con2.CreateCommand();
+            cmd2.CommandText = "select Name from DEPARTMENT where ID = @id";
+            cmd2.Parameters.AddWithValue(@"id", id);
+            con2.Open();
+            var rdr2 = cmd2.ExecuteReader();
+            if (rdr2.Read())
+            {
+                result = rdr2.GetString(0);
+            }
+            else
+            {
+                result = "oda bulunamadı!";
+            }
+            con2.Close();
+            return result;
+        }
+        String getTitle(int id)
+        {
+            String result = null;
+            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
+            var cmd3 = con3.CreateCommand();
+            cmd3.CommandText = "select Name from TITLE where ID = @id";
+            cmd3.Parameters.AddWithValue(@"id", id);
+            con3.Open();
+            var rdr3 = cmd3.ExecuteReader();
+            if (rdr3.Read())
+            {
+                result = rdr3.GetString(0);
+            }
+            else
+            {
+                result = "yazar bulunamadı!";
+            }
+            con3.Close();
+            return result;
         }
     }//master.cs
 

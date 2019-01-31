@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Yazar.aspx.cs" Inherits="MuhendisSozluk.User.Yazar" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Entry.aspx.cs" Inherits="MuhendisSozluk.Entry.Entry" %>
 
 <!DOCTYPE html>
 
@@ -10,6 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server" class="form1">
+      
           <div class="top">
             <div class="logo">
                  </div>
@@ -17,14 +18,14 @@
             <div class="search">
                 
                 <asp:TextBox ID="txt_user_search" runat="server" placeholder="başlık, #entry ya da @yazar" Width="250px" Height="20px" BorderStyle="Solid" ></asp:TextBox>
-                <asp:Button ID="btn_user_search" runat="server" Width="70px" Height="25px" Text="ara" Font-Size="Large" OnClick="btn_user_search_Click" /></div>
+                <asp:Button ID="btn_user_search" runat="server" Width="70px" Height="25px" Text="ara" Font-Size="Large" OnClick="btn_user_search_Click"/></div>
                 <asp:Label ID="lbl_user_search" runat="server"></asp:Label>
             
             <div class="profile">
                 <div class="buttons">
            
-               <asp:Button ID="btn_default_profile" runat="server" BorderStyle="None" BackColor="#ffffe6" Width="49%" Height="100%" Font-Size="Large" Text="Kayıt Ol"  OnClick="btn_default_profile_Click"/>
-                        <asp:Button ID="btn_default_loginout" runat="server"  BorderStyle="None" BackColor="#ffffe6" Width="49%" Height="100%" Font-Size="Large" Text="Giriş Yap" OnClick="btn_default_loginout_Click"  /> 
+               <asp:Button ID="btn_default_profile" runat="server" BorderStyle="None" BackColor="#ffffe6" Width="49%" Height="100%" Font-Size="Large" Text="Kayıt Ol" OnClick="btn_default_profile_Click" />
+                        <asp:Button ID="btn_default_loginout" runat="server"  BorderStyle="None" BackColor="#ffffe6" Width="49%" Height="100%" Font-Size="Large" Text="Giriş Yap" OnClick="btn_default_loginout_Click" /> 
                 
 
                 </div>
@@ -39,11 +40,11 @@
         
               </div>
         <div class="solkanat">
-       <%--     <div class="search_title"> 
-            <asp:TextBox ID="txt_default_title_search" runat="server" BorderStyle="None" Width="80%" BackColor="Gray" Height="20px" style="margin-bottom: 0px"></asp:TextBox> 
+            <div class="search_title"> 
+            <asp:TextBox ID="txt_default_title_search" runat="server" BorderStyle="None" Width="80%" BackColor="Gray" Height="20px"></asp:TextBox> 
             <asp:Button ID="btn_default_title_search" runat="server" Width="18%" Height="20px" Text="ara" BackColor="#333333" BorderStyle="None" ForeColor="White"/>
            <%-- <asp:Button ID="updateSolKanat" runat="server" OnClick="updateLastTitles" Height="20px" Width="305px" BackColor="#777755" ForeColor="#333333" Font-Size="Large" Font-Names="Consolas" />--%>
-        <%--</div> --%>
+        </div> 
             <asp:Repeater ID="title_repeater" runat="server" >
                 <ItemTemplate>
                     <div style="width:100%; height:30px; border-bottom:1px dashed gray; float:left; background-color:#777777">
@@ -60,22 +61,10 @@
            <%-- <asp:ListBox ID="ListSolKanat" CssClass="ListSolKanat" runat="server" Height="599px" Width="100%" BackColor="#ffd9b3" ForeColor="#333333" Font-Size="Large" Font-Names="Consolas" SelectionMode="Single"  OnSelectedIndexChanged="ListSolKanat_OnSelectedItemChanged"  ></asp:ListBox>--%>
 
         </div>
-        <div class="entries">
-            <div class="writer">
-                <div style="float:left; text-align:center; width:100%""><asp:Label ID="lbl_writer_name" runat="server" Height="30px"  Font-Bold="true" Font-Size="Large"></asp:Label></div>
-                 <div style="float:left; width:100%""><asp:Label ID="Label4" runat="server" Height="30px" Text="bağlı olduğu oda : "></asp:Label><asp:Label ID="lbl_writer_department" runat="server" Height="30px"></asp:Label></div><br />
-                <div style="float:right; width:49%"><asp:Label ID="lbl_writer_seniority" runat="server" Height="30px" ForeColor="Red"></asp:Label></div> 
-               
-                <div style="float:left; width:49%""><asp:Label ID="Label1" runat="server" Height="30px" Text="rating : "></asp:Label><asp:Label ID="lbl_writer_rating" runat="server" Height="30px"></asp:Label></div>
-                 <div style="float:left; width:49%""><asp:Label ID="Label2" runat="server" Height="30px" Text="entry sayısı : "></asp:Label><asp:Label ID="lbl_writer_entries" runat="server" Height="30px"></asp:Label></div>
-            </div>
-            
-                <div class="title_name" style="width:100%; height:30px; float:left; text-align:center; line-height:30px;">
-                    <asp:Label ID="lbl_default_title_name" runat="server" Font-Bold="true" Text="son sözleri"></asp:Label>
-                </div>
+            <div class=" entries">
+              
                 
-
-                 <asp:Repeater ID="writer_entry_repeater" runat="server">
+         <asp:Repeater ID="search_entry_repeater" runat="server">
              <ItemTemplate>
         <div class="cover" style="width:100%; float:left;  margin-top:20px; background-color:#d9d9d9">
             <div class="entry" style="width:100%; height:auto; padding:5px">
@@ -97,9 +86,9 @@
             </ItemTemplate>
         </asp:Repeater>
             
-              </div>
-       
+                
+               
+        </div>
     </form>
 </body>
 </html>
-

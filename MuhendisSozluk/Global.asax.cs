@@ -13,7 +13,9 @@ namespace MuhendisSozluk
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            RouteTable.Routes.Add("blog-detay", new Route("{title}", new PageRouteHandler("~/default.aspx")));
+            RouteTable.Routes.Add("baslik", new Route("{title}", new PageRouteHandler("~/default.aspx")));
+            RouteTable.Routes.Add("yazar", new Route("yazar/{name}", new PageRouteHandler("~/user/yazar.aspx")));
+            RouteTable.Routes.Add("entry", new Route("entry/{number}", new PageRouteHandler("~/entry/entry.aspx")));
         }
 
         protected void Session_Start(object sender, EventArgs e)

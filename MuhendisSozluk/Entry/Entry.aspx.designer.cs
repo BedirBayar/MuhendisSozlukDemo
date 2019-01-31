@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MuhendisSozluk {
+namespace MuhendisSozluk.Entry {
     
     
-    public partial class _default {
+    public partial class Entry {
         
         /// <summary>
         /// title control.
@@ -103,48 +103,12 @@ namespace MuhendisSozluk {
         protected global::System.Web.UI.WebControls.Repeater title_repeater;
         
         /// <summary>
-        /// lbl_default_title_name control.
+        /// search_entry_repeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_default_title_name;
-        
-        /// <summary>
-        /// entry_repeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater entry_repeater;
-        
-        /// <summary>
-        /// txt_write_entry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_write_entry;
-        
-        /// <summary>
-        /// btn_entry_send control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_entry_send;
-        
-        /// <summary>
-        /// lbl_entrysend_status control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_entrysend_status;
+        protected global::System.Web.UI.WebControls.Repeater search_entry_repeater;
     }
 }

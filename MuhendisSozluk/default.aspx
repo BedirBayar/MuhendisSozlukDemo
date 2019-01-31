@@ -5,7 +5,7 @@
 <html>
 <head runat="server">
     <title id="title" runat="server"></title>
-    <link href="default.css" rel="stylesheet" />
+    <link href="~/default.css" rel="stylesheet" />
    
 </head>
 <body>
@@ -16,8 +16,11 @@
                  </div>
             
             <div class="search">
-
-            </div>
+                
+                <asp:TextBox ID="txt_user_search" runat="server" placeholder="başlık, #entry ya da @yazar" Width="250px" Height="20px" BorderStyle="Solid" ></asp:TextBox>
+                <asp:Button ID="btn_user_search" runat="server" Width="70px" Height="25px" Text="ara" Font-Size="Large" OnClick="btn_user_search_Click"/></div>
+                <asp:Label ID="lbl_user_search" runat="server"></asp:Label>
+            
             <div class="profile">
                 <div class="buttons">
            
@@ -62,6 +65,7 @@
                 <div class="title_name" style="width:100%; height:30px; float:left; text-align:center; line-height:30px;">
                     <asp:Label ID="lbl_default_title_name" runat="server" Font-Bold="true" Text="başlık"></asp:Label>
                 </div>
+                
 
                  <asp:Repeater ID="entry_repeater" runat="server">
             <ItemTemplate>
@@ -82,11 +86,11 @@
         </div>
             </ItemTemplate>
         </asp:Repeater>
-                <asp:TextBox Class="txt_write_title" ID="txt_write_title" runat="server" MaxLength="100" TextMode="MultiLine" Width="99%" ></asp:TextBox>
+              <%--  <asp:TextBox Class="txt_write_title" ID="txt_write_title" runat="server" MaxLength="100" TextMode="MultiLine" Width="99%" ></asp:TextBox>
                 <div class="entry_send_button">
                     <asp:Button ID="btn_title_send" runat="server" BorderStyle="None" Text="başlık aç" Width="100px" Height="100%" BackColor="#ffffe6" OnClick="btn_title_send_Click"/>
                     <asp:Label ID="lbl_title_send" runat="server"></asp:Label>
-                </div>
+                </div>--%>
                 
                 <asp:TextBox Class="txt_write_entry" ID="txt_write_entry" runat="server" MaxLength="100" TextMode="MultiLine" placeholder="entry girebilmek için giriş yapınız." Width="99%" ></asp:TextBox>
                 <div class="entry_send_button">

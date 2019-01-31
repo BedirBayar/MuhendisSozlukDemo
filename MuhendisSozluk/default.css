@@ -5,10 +5,7 @@
     margin: auto;
     /*border:1px solid #660000;*/
 }
-.form1{
-    width:100%;
-    height:0px;
-}
+
 
 .top {
     margin-top: 10px;
@@ -30,7 +27,11 @@
         height: 100%;
         float: left;
         border-right: 1px solid #660000;
+        text-align:center;
+       align-items:center;
+       line-height:100px;
     }
+   
 
     .top .profile {
         width: 25%;
@@ -79,13 +80,15 @@
             text-decoration: none;
             color: aqua;
         }
+
 .entries {
     width: 49%;
-    height: 600px;
+    height: 900px;
     float: left;
     border-right: 1px solid #660000;
+    background-color: #ffffe6;
 }
-.enttries .txt_write_entry{
+.entries .txt_write_entry{
     height:auto;
 }
 .entries .entry_send_button{

@@ -76,6 +76,7 @@
     <Content Include="Admin\Titles.aspx" />
     <Content Include="Admin\Writers.aspx" />
     <Content Include="default.aspx" />
+    <Content Include="Entry\Entry.aspx" />
     <Content Include="Entry\entry_sample.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Title\sol_kanat_sample.aspx" />
@@ -163,6 +164,13 @@
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Entry\Entry.aspx.cs">
+      <DependentUpon>Entry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entry\Entry.aspx.designer.cs">
+      <DependentUpon>Entry.aspx</DependentUpon>
     </Compile>
     <Compile Include="Entry\entry_sample.aspx.cs">
       <DependentUpon>entry_sample.aspx</DependentUpon>

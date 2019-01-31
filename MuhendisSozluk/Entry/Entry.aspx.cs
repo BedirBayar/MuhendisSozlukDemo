@@ -7,12 +7,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace MuhendisSozluk.User
+namespace MuhendisSozluk.Entry
 {
-    public partial class Yazar : System.Web.UI.Page
+    public partial class Entry : System.Web.UI.Page
     {
         String con = connectionStrings.bedir;
-        static String name2 = "";
+        static int number2 = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -31,11 +32,11 @@ namespace MuhendisSozluk.User
                     btn_default_loginout.Text = "giriş yap";
                 }
 
-                if (RouteData.Values["name"] != null)
+                if (RouteData.Values["number"] != null)
                 {
-                    name2 = (RouteData.Values["name"].ToString());
+                    number2 = Int32.Parse(RouteData.Values["number"].ToString());
                     fill();
-                    fillWriter();
+                   
                 }
                 else Response.Redirect("~/default.aspx");
 
@@ -49,10 +50,24 @@ namespace MuhendisSozluk.User
             title_repeater.DataSource = ds_title;
             title_repeater.DataBind();
 
-            DataSet ds = fillWritersEntries(name2);
-            writer_entry_repeater.DataSource = ds;
-            writer_entry_repeater.DataBind();
+            loadOneEntry(number2);
+        }
 
+        public void loadOneEntry(int number)
+        {
+            DataSet ds = GetOneEntry(number);
+            search_entry_repeater.DataSource = ds;
+            search_entry_repeater.DataBind();
+        }
+
+        private DataSet GetOneEntry(int number)
+        {
+            SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
+            SqlDataAdapter da = new SqlDataAdapter(@"select * from ENTRY where ID=@number", con1);
+            da.SelectCommand.Parameters.AddWithValue(@"number", number);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
         }
 
         private DataSet loadSolKanat()
@@ -64,121 +79,7 @@ namespace MuhendisSozluk.User
             da.Fill(ds);
             return ds;
         }
-
-        private DataSet fillWritersEntries(String name)
-        {
-            SqlConnection con1 = new SqlConnection(connectionStrings.bedir);
-            SqlDataAdapter da = new SqlDataAdapter(@"select Top 10 * from ENTRY where WriterID = (select ID from WRITER where Url=@name) and Visible='True'", con1);
-            da.SelectCommand.Parameters.AddWithValue(@"name", name);
-
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            return ds;
-        }
-
-        public void fillWriter()
-        {
-            String name;
-            String dep;
-            String sen;
-            double rating = 0;
-            int Entry = 0;
-            SqlConnection c1 = new SqlConnection(con);
-            SqlCommand cmd1 = c1.CreateCommand();
-            cmd1.CommandText = "select ID, Name, SeniorityID, DepartmentID, Rating from WRITER Where Url=@url ";
-            cmd1.Parameters.AddWithValue(@"url", name2);
-            c1.Open();
-            
-            var rdr = cmd1.ExecuteReader();
-            if (rdr.Read()){ 
-                name = rdr.GetString(1);
-                sen = getSeniorityByID(rdr.GetInt32(2));
-                dep = getDepartmentByID(rdr.GetInt32(3));
-                rating = rdr.GetDouble(4);
-                Entry = getEntryCount(rdr.GetInt32(0));
-
-            }
-            else
-            {
-                name = "Sorgu hatası";
-                dep = "Sorgu hatası";
-                sen = "Sorgu hatası";
-               
-            }
-            c1.Close();
-
-            lbl_writer_department.Text = dep;
-            lbl_writer_name.Text = name;
-            lbl_writer_seniority.Text = sen;
-            lbl_writer_rating.Text = rating.ToString();
-            lbl_writer_entries.Text = Entry.ToString();
-
-
-        }
-
-        public String getSeniorityByID(int id)
-        {
-            String result = "";
-            SqlConnection c2 = new SqlConnection(con);
-            SqlCommand cmd2 = c2.CreateCommand();
-            cmd2.CommandText = "select Name from SENIORITY Where ID=@id ";
-            cmd2.Parameters.AddWithValue(@"id", id);
-            c2.Open();
-            
-                var rdr2 = cmd2.ExecuteReader();
-            if (rdr2.Read()) { 
-                result = rdr2.GetString(0);
-            }
-            else
-            {
-                result = "HATA";
-            }
-            c2.Close();
-            return result;
-        }
-
-        String getDepartmentByID(int id)
-        {
-            String result = null;
-            SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
-            var cmd2 = con2.CreateCommand();
-            cmd2.CommandText = "select Name from DEPARTMENT where ID = @id";
-            cmd2.Parameters.AddWithValue(@"id", id);
-            con2.Open();
-            var rdr2 = cmd2.ExecuteReader();
-            if (rdr2.Read())
-            {
-                result = rdr2.GetString(0);
-            }
-            else
-            {
-                result = "oda bulunamadı!";
-            }
-            con2.Close();
-            return result;
-        }
-
-        int getEntryCount(int id)
-        {
-            int result = 0;
-            SqlConnection con3 = new SqlConnection(connectionStrings.bedir);
-            var cmd3 = con3.CreateCommand();
-            cmd3.CommandText = "select count(ID) from ENTRY where WriterID = @id";
-            cmd3.Parameters.AddWithValue(@"id", id);
-            con3.Open();
-            var rdr3 = cmd3.ExecuteReader();
-            if (rdr3.Read())
-            {
-                result = rdr3.GetInt32(0);
-            }
-            else
-            {
-                result = 0;
-            }
-            con3.Close();
-            return result;
-        }
-
+        
         protected void btn_user_search_Click(object sender, EventArgs e)
         {
             String key = txt_user_search.Text;
@@ -197,9 +98,10 @@ namespace MuhendisSozluk.User
                 searchTitle(key);
             }
         }
+
         public void searchEntry(String key)
         {
-            String url = "~/entry/" + key;
+            String url = "~/entry/" + Helper.SEOUrl(key);
             SqlConnection con = new SqlConnection(connectionStrings.bedir);
             int number = Int32.Parse(key);
             var cmd = con.CreateCommand();
@@ -240,9 +142,10 @@ namespace MuhendisSozluk.User
             }
             con.Close();
         }
+
         protected void searchTitle(String key)
         {
-
+            
             SqlConnection con2 = new SqlConnection(connectionStrings.bedir);
             String name = Helper.SEOUrl(key);
             String url = "~/" + name;
@@ -300,6 +203,7 @@ namespace MuhendisSozluk.User
             return result;
         }
 
+
         protected void btn_default_loginout_Click(object sender, EventArgs e)
         {
             object user = Session["username"];
@@ -317,5 +221,4 @@ namespace MuhendisSozluk.User
         }
 
     }
-
 }
